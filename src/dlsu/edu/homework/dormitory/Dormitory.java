@@ -22,9 +22,19 @@ public class Dormitory {
         }
     }
 
-//    public bool isValidGuest(Person acceptGuest, Room acceptRoom){
-//        if(acceptRoom.capacity)
-//    }
+   public boolean isValidGuest(boolean acceptGuest, int roomNumber){
+        if(roomNumber > 6){
+            System.out.println("Room Capacity is Full!");
+        } else if ( roomNumber < 0) {
+            System.out.println("Invalid Room Number");
+        }
+        else
+            acceptGuest = true;
+
+        return acceptGuest;
+   }
+
+
     public void setName(String name) {
         this.name = name;
     }
