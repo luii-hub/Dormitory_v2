@@ -1,34 +1,51 @@
 package dlsu.edu.homework.dormitory;
 
+import java.util.ArrayList;
+
 public class Room {
 
-    public int capacity;
+    private int capacity;
     private int number;
+    private ArrayList<Person> guests = new ArrayList<Person>();
 
-    public Room(int number, int capacity){
+    public Room(int number, int capacity) {
         this.number = number;
-        setCapacity(capacity);
+        this.capacity = capacity;
     }
 
-//    public Room(int number){
-//        this.number = number;
-//        this.capacity = 6;
-//    }
+    public Room(int number) {
+        this.number = number;
+        this.capacity = 6;
+    }
 
-    public void setCapacity(int capacity) {
-        do {
-            this.capacity = capacity;
-            if(capacity > 6){
-                System.out.println("Error: A room can only accommodate up to six guests at most.");
+    public int getGuestCount() {
+        return guests.size();
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void addGuest(Person guest) {
+        guests.add(guest);
+    }
+
+    //Get Guest Room Number, Guest Name, and Guest Nationality.
+    public String getGuestInfo(){
+        String guestInfo = "";
+        if(guests.size() != 0){
+            guestInfo += "Room Number: " + this.number + "\n";
+            for(Person guest : guests){
+                guestInfo += "Guest: " + guest.getName() + ", " + guest.getNationality() + "\n";
             }
-        } while(this.capacity > 6);
-
+            return guestInfo;
+        }
+        return null;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public ArrayList<Person> getGuestList(){
+        return guests;
     }
-
 }
 
 

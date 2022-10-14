@@ -18,36 +18,66 @@ public class Dormitory {
         this.name = name;
         this.roomCount = roomCount;
         for(int i = 0; i < roomCount; i++){
-            rooms.add(new Room(i+1, 6));
+            rooms.add(new Room(i+1));
         }
     }
 
-   public boolean isValidGuest(boolean acceptGuest, int roomNumber){
-        if(roomNumber > 6){
-            System.out.println("Room Capacity is Full!");
-        } else if ( roomNumber < 0) {
-            System.out.println("Invalid Room Number");
+    public int getRoomCount() {
+        return rooms.size();
+    }
+
+    //Accept Guest given Room Number
+    public boolean acceptGuest(Person guest, int roomNumber){
+
+        if(rooms.size() < roomNumber){
+            return false;
         }
-        else
-            acceptGuest = true;
+        else if(rooms.get(roomNumber - 1).getGuestCount() >= rooms.get(roomNumber - 1).getCapacity()){
+            if(rooms.get(roomNumber - 1).getGuestCount() == rooms.get(roomNumber - 1).getCapacity()){
 
-        return acceptGuest;
-   }
-
-
-    public void setName(String name) {
-        this.name = name;
+            }
+            return false;
+        }
+        else{
+            //Accept Guest into a room given its room number
+            rooms.get(roomNumber - 1).addGuest(guest);
+            return true;
+        }
     }
 
-    public void setRoomCount(int roomCount) {
-        this.roomCount = roomCount;
+    public String returnGuest(int roomNumber) {
+        if(roomNumber > rooms.size()){
+            return null;
+        }
+        else {
+            return rooms.get(roomNumber-1).getGuestInfo();
+        }
     }
 
-    public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = rooms;
+    public void removeGuest(String name){
+        for (Room room : rooms) {
+            ArrayList<Person> guestList = room.getGuestList();
+            for (int j = 0; j < guestList.size(); j++) {
+                if (guestList.get(j).getName().compareTo(name) == 0) {
+                    guestList.remove(j);
+                }
+            }
+        }
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String toString() {
-        return "Dorm: " + name + "\n" + "No. of Rooms: " + roomCount + "\n" + "Full Rooms: " + "N/A" + "\n";
+        int vacant = 0;
+
+        for(int i = 0; i < rooms.size(); i++){
+            if(rooms.get(i).getCapacity() > rooms.get(i).getGuestCount()){
+                vacant++;
+            }
+        }
+
+        return "Dorm: " + name + "\n" + "No. of Rooms: " + rooms.size() + "\n" + "Available Rooms: " + vacant + "\n";
     }
 }

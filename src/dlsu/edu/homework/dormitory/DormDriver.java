@@ -3,8 +3,14 @@ package dlsu.edu.homework.dormitory;
 import java.util.ArrayList;
 
 public class DormDriver {
-    public void display(/* provide your parameter */) {
+    public static void display(Dormitory dorm) {
 		/* display all the guests in the room */
+		System.out.println("[" + dorm.getName() + "]");
+		for(int i = 0 ; i < dorm.getRoomCount(); i++) {
+			if(dorm.returnGuest(i+1) != null){
+				System.out.println(dorm.returnGuest(i+1));
+			}
+		}
 	}
 	
 	public static void displayDorms(Dormitory[] dorms) {
@@ -23,7 +29,7 @@ public class DormDriver {
 			   of the guests in each room. Part of the 
 			   solution is to call the method display() 
 			   in DormDriver. Provide your code */
-			System.out.println(" ");
+				display(dorms[i]);
 
 		}
 	}
@@ -55,30 +61,47 @@ public class DormDriver {
 		   separate rooms. Provide your code. 
 		   Note: Do not hard code the adding of guests.
 		*/
-		
-		
-		
-		
-		
+		int counter = 0;
+		for(int i = 0; i < guests.size(); i++){
+			int roomNumber = 1;
+			if (guests.get(i).getNationality().equals("Filipino")) {
+				dorms[0].acceptGuest(guests.get(i), roomNumber);
+				counter++;
+			}
+			else{
+				dorms[1].acceptGuest(guests.get(i), roomNumber);
+			}
+			if(counter == 6){
+				roomNumber++;
+				dorms[0].acceptGuest(guests.get(i), roomNumber);
+				counter = 0;
+			}
+		}
+
+
 		/* Provide your code to call displayDorms() in
 		   class DormDriver. */
-		displayDorms(dorms);
-		   
-		
+			displayDorms(dorms);
+
 
 		/* Provide code to transfer Ray to STC Dorm, and
 			he wants to be assigned to a currently unoccupied
 			room. */
-			
+			System.out.println("Ray is moved to STC Dorm to a currently unoccupied room.");
+			dorms[0].removeGuest("Ray");
+			dorms[1].acceptGuest(guests.get(3),2);
 		
 		
 		/* Provide code to transfer Michael to the same room 
 		   as Miguel */
-			
-		
+		System.out.println("Michael transferred to the same room as Miguel");
+			dorms[1].removeGuest("Michael");
+			dorms[0].acceptGuest(guests.get(5),1);
 
 		/* Provide your code to call displayDorms() in
 		   class DormDriver. */
+
+		displayDorms(dorms);
 
 
 		   

@@ -9,14 +9,11 @@ public class Person {
         this.name = name;
         this.nationality = nationality;
     }
-
     public String getName() {
         return name;
     }
-
     public String getNationality() {
         return nationality;
     }
-
 
 }
